@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Thư Viện Spine Animation</title>
+    <script src="https://unpkg.com/@esotericsoftware/spine-player@4.1.*/dist/iife/spine-player.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@esotericsoftware/spine-player@4.1.*/dist/spine-player.css">
+    <style>
+        body { font-family: sans-serif; background: #222; color: white; padding: 20px; }
+        .gallery { display: flex; flex-wrap: wrap; gap: 20px; }
+        .player-container { width: 400px; height: 400px; }
+        h3 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Thư Viện Của Tôi</h1>
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        // BẠN CHỈ CẦN THÊM TÊN THƯ MỤC NHÂN VẬT VÀO DANH SÁCH NÀY LÀ ĐƯỢC
+        const characterFolders = ["Char_A", "Char_B"]; 
+
+        const gallery = document.getElementById('gallery');
+
+        characterFolders.forEach(folder => {
+            // Tạo khung chứa cho từng nhân vật
+            let div = document.createElement('div');
+            div.innerHTML = `<h3>${folder}</h3><div id="player-${folder}" class="player-container"></div>`;
+            gallery.appendChild(div);
+
+            // Khởi tạo Spine Player
+            new spine.SpinePlayer(`player-${folder}`, {
+                jsonUrl: `assets/${folder}/model.json`,
+                atlasUrl: `assets/${folder}/model.atlas`,
+                showControls: true, // Hiện bảng điều khiển play/pause
+                alpha: true,        // Nền trong suốt
+                backgroundColor: "#cccccc00" 
+            });
+        });
+    </script>
+</body>
+</html>
